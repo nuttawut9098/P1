@@ -1,0 +1,52 @@
+<div class="max-w-2xl mx-auto p-6 bg-gray-100 shadow-lg rounded-lg form-container">
+    <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Add New Item</h2>
+    <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label for="portion" class="block text-sm font-bold text-gray-700">Portion</label>
+          <input formControlName="portion" id="portion" class="w-full p-2 rounded border border-gray-300" placeholder="e.g. 123">
+        </div>
+        <div>
+          <label for="no" class="block text-sm font-bold text-gray-700">No</label>
+          <input formControlName="no" id="no" class="w-full p-2 rounded border border-gray-300" placeholder="e.g. 456" type="number">
+        </div>
+        <div>
+          <label for="items" class="block text-sm font-bold text-gray-700">Items</label>
+          <input formControlName="items" id="items" class="w-full p-2 rounded border border-gray-300" placeholder="Item name">
+        </div>
+        <div>
+          <label for="item_remind" class="block text-sm font-bold text-gray-700">Item Remind</label>
+          <input formControlName="item_remind" id="item_remind" class="w-full p-2 rounded border border-gray-300" placeholder="Remind">
+        </div>
+        <div>
+          <label for="rank" class="block text-sm font-bold text-gray-700">Rank</label>
+          <input formControlName="rank" id="rank" class="w-full p-2 rounded border border-gray-300" placeholder="Rank">
+        </div>
+        <div>
+          <label for="qa_network" class="block text-sm font-bold text-gray-700">QA Network</label>
+          <input formControlName="qa_network" id="qa_network" class="w-full p-2 rounded border border-gray-300" placeholder="Network">
+        </div>
+        <div>
+          <label for="sub_seq" class="block text-sm font-bold text-gray-700">Sub Sequence</label>
+          <input formControlName="sub_seq" id="sub_seq" class="w-full p-2 rounded border border-gray-300" placeholder="Sequence">
+        </div>
+        <div>
+          <label for="item_seq" class="block text-sm font-bold text-gray-700">Item Sequence</label>
+          <input formControlName="item_seq" id="item_seq" class="w-full p-2 rounded border border-gray-300" placeholder="Sequence" type="number">
+        </div>
+        <div>
+          <label for="item_type" class="block text-sm font-bold text-gray-700">Item Type</label>
+          <input formControlName="item_type" id="item_type" class="w-full p-2 rounded border border-gray-300" placeholder="Type">
+        </div>
+        <div class="md:col-span-2">
+          <label for="item_detail" class="block text-sm font-bold text-gray-700">Item Detail</label>
+          <textarea formControlName="item_detail" id="item_detail" rows="2" class="w-full p-2 rounded border border-gray-300" placeholder="Detail about the item"></textarea>
+        </div>
+      </div>
+  
+      <button type="submit" class="w-full mt-4 py-2 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg shadow-md transition-all">
+        Save Item
+      </button>
+    </form>
+  </div>
+  

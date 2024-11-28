@@ -1,0 +1,50 @@
+<div class="sidebar" [ngClass]="{ collapsed: isCollapsed }">
+  <div class="sidebar-header">
+    <button class="toggle-btn" (click)="toggleSidebar()">STM</button>
+  </div>
+
+  <!-- Link Group -->
+  <div class="link-group">
+    <!-- Accordion -->
+    <button class="accordion-btn" (click)="toggleAccordion()">
+      <i class="fa fa-info-circle"></i>
+      <span *ngIf="!isCollapsed">Overview</span>
+      <i class="fa" [ngClass]="accordionVisible ? 'fa-caret-up' : 'fa-caret-down'" *ngIf="!isCollapsed"></i>
+    </button>
+
+    <div *ngIf="accordionVisible && !isCollapsed" class="accordion-content">
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+    </div>
+
+    <!-- Navigation Links -->
+    <a
+      *ngFor="let item of navItems"
+      class="sidebar-link"
+      [routerLink]="item.path"
+      routerLinkActive="text-white"
+    >
+      <i [class]="item.icon"></i>
+      <span *ngIf="!isCollapsed">{{ item.name }}</span>
+    </a>
+  </div>
+
+  <!-- Logout -->
+  <a href="/logout" class="logout-link">
+    <i class="fas fa-sign-out-alt"></i>
+    <span *ngIf="!isCollapsed">Logout</span>
+  </a>
+</div>
+
+<div class="topnav bg-gray-100 flex justify-between items-center p-4 shadow-md">
+  <!-- Title -->
+  <h1 class="topnav-title text-xl font-bold">Dashboard</h1>
+
+  <!-- User Info -->
+  <div class="user-info flex items-center space-x-4">
+    <h4 class="text-lg font-medium text-gray-800">{{ username }}</h4>
+    <a href="/logout" class="logout-link text-red-500 flex items-center">
+      <i class="fas fa-sign-out-alt mr-2"></i> Logout
+    </a>
+  </div>
+</div>

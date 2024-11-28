@@ -1,0 +1,56 @@
+<div class="container mx-auto py-4 px-4 max-w-lg border border-gray-300 rounded-lg shadow-lg">
+  <h2 class="text-3xl font-bold mb-6 text-gray-800">แก้ไขข้อมูลผู้ใช้</h2>
+
+  <form (ngSubmit)="updateUser()" #userForm="ngForm">
+    <div class="mb-4">
+      <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        [(ngModel)]="user.username"
+        readonly
+        class="mt-1 p-2 w-full border border-gray-300 rounded-md bg-gray-100"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+      <select
+        id="role"
+        name="role"
+        [(ngModel)]="user.role"
+        class="mt-1 p-2 w-full border border-gray-300 rounded-md"
+      >
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label for="password" class="block text-sm font-medium text-gray-700">New Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="user.password"
+        required
+        minlength="6"
+        class="mt-1 p-2 w-full border border-gray-300 rounded-md"
+      />
+      <div *ngIf="userForm.controls['password']?.invalid && userForm.controls['password']?.touched" class="text-red-500 text-sm">
+        รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร
+      </div>
+    </div>
+
+    <div class="flex items-center justify-end">
+      <button
+        type="submit"
+        class="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        [disabled]="userForm.invalid"
+      >
+        บันทึกการเปลี่ยนแปลง
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,134 @@
+<div class="container mx-auto px-4 mt-20">
+  <div class="overflow-x-auto w-full">
+    <table class="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden border-collapse border border-gray-200">
+      <thead>
+        <tr class="bg-gray-100 text-gray-700">
+          <th class="px-4 py-2 border border-gray-200">วันที่</th>
+          <th class="px-4 py-2 border border-gray-200">เวลา</th>
+          <th class="px-4 py-2 border border-gray-200">Shift</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="px-4 py-2 border border-gray-200">{{ currentDate | date: 'dd/MM/yyyy' }}</td>
+          <td class="px-4 py-2 border border-gray-200">{{ currentDate | date: 'HH:mm:ss' }}</td>
+          <td class="px-4 py-2 border border-gray-200">{{ currentShift }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="overflow-x-auto mt-6">
+    <table class="table-auto w-full bg-gray-50 shadow-lg rounded-lg overflow-hidden border-collapse border border-gray-200">
+      <thead class="bg-gray-200 text-gray-700">
+        <tr>
+          <th class="px-4 py-2 border border-gray-200">Portion</th>
+          <th class="px-4 py-2 border border-gray-200">Item</th>
+          <th class="px-4 py-2 border border-gray-200">Item Remind</th>
+          <th class="px-4 py-2 border border-gray-200">Sup_seq</th>
+          <th class="px-4 py-2 border border-gray-200">Item_seq</th>
+          <th class="px-4 py-2 border border-gray-200">Type</th>
+          <th class="px-4 py-2 border border-gray-200">Details</th>
+          <th class="px-4 py-2 border border-gray-200 text-center">Action</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-600">
+        <tr *ngFor="let item of paginatedData" [ngClass]="{
+          'bg-green-100': item.status === 'OK',  
+          'bg-red-100': item.status === 'NG', 
+          'bg-gray-100': item.status === '',
+          'hover:bg-gray-200': true
+        }" class="border-b">
+          <td class="px-4 py-2 border border-gray-200">{{ item.portion }}</td>
+          <td class="px-4 py-2 border border-gray-200">{{ item.items }}</td>
+          <td class="px-4 py-2 border border-gray-200">{{ item.item_remind }}</td>
+          <td class="px-4 py-2 border border-gray-200">{{ item.sub_seq }}</td>
+          <td class="px-4 py-2 border border-gray-200">{{ item.item_seq }}</td>
+          <td class="px-4 py-2 border border-gray-200">{{ item.item_type }}</td>
+          <td class="px-4 py-2 border border-gray-200">{{ item.item_detail }}</td>
+          <td>
+            <input
+            *ngIf="item.status === 'NG'"
+            type="text"
+            [(ngModel)]="item.remark"
+            (change)="updateRemark(item.sub_seq, item.item_seq, item.remark)"
+            placeholder="เพิ่มหมายเหตุ"
+            class="border px-2 py-1 rounded-md w-full"
+          />          
+            <input
+              *ngIf="item.status === 'NG'"
+              type="file"
+              (change)="updateFilePath($event, item)"
+              class="mt-2"
+            />
+          </td>
+          
+                 
+          <td class="px-4 py-2 border border-gray-200 text-center">
+            <button 
+              [disabled]="!isActionAllowed(item.sub_seq, item.item_seq)" 
+              (click)="toggleStatus(item.sub_seq.toString(), item.item_seq.toString())" 
+              [ngClass]="{
+                'bg-gray-500': item.status === '',   
+                'bg-green-500': item.status === 'OK',    
+                'bg-red-500': item.status === 'NG'   
+              }"
+              class="text-white py-2 px-4 rounded-md font-semibold hover:bg-opacity-80">
+              {{ getButtonLabel(item.sub_seq, item.item_seq) }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="flex justify-between items-center mt-6 mb-9">
+    <div class="flex items-center">
+      <label for="itemsPerPage" class="text-gray-700 font-medium mr-2">แสดง: </label>
+      <select 
+        id="itemsPerPage" 
+        [(ngModel)]="itemsPerPage" 
+        (change)="updatePagination()" 
+        class="border rounded-md px-2 py-1 focus:ring focus:ring-blue-200">
+        <option *ngFor="let option of pageSizeOptions" [value]="option">
+          {{ option }} รายการ
+        </option>
+      </select>
+    </div>
+
+    <div class="flex space-x-2">
+      <button 
+        (click)="changePage(currentPage - 1)" 
+        [disabled]="currentPage === 1"
+        class="px-4 py-2 bg-gray-200 text-gray-600 hover:bg-gray-500 hover:text-white rounded-md disabled:bg-gray-300">
+        Previous
+      </button>
+
+      <ng-container *ngFor="let page of [].constructor(getTotalPages()); let i = index">
+        <button 
+          (click)="changePage(i + 1)" 
+          [ngClass]="{
+            'bg-gray-500 text-white': currentPage === i + 1,
+            'bg-gray-200 text-gray-600': currentPage !== i + 1
+          }"
+          class="px-4 py-2 rounded-md hover:bg-gray-500 hover:text-white">
+          {{ i + 1 }}
+        </button>
+      </ng-container>
+
+      <button 
+        (click)="changePage(currentPage + 1)" 
+        [disabled]="currentPage === getTotalPages()"
+        class="px-4 py-2 bg-gray-200 text-gray-600 hover:bg-gray-500 hover:text-white rounded-md disabled:bg-gray-300">
+        Next
+      </button>
+    </div>
+    <button
+  (click)="saveChanges()"
+  [disabled]="!canSaveChanges()"
+  class="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-700 font-semibold disabled:bg-gray-300 disabled:cursor-not-allowed">
+  Save
+</button>
+
+  </div>
+</div>

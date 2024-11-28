@@ -1,0 +1,75 @@
+<div class="p-6 bg-gray-50 min-h-screen flex flex-col items-center mt-[60px]">
+  <!-- Add/Edit User Form -->
+  <div class="w-full max-w-6xl mt-6 bg-white rounded-md shadow-md p-4" *ngIf="isFormOpen">
+    <h2>{{ isEdit ? 'Edit User' : 'Add User' }}</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <input type="text" [(ngModel)]="userFormData.username" name="username" placeholder="Username" required class="w-full p-2 border rounded-md" [readonly]="isEdit"/>
+      </div>
+      <div class="mb-4">
+        <input type="password" [(ngModel)]="userFormData.password" name="password" placeholder="Password" required class="w-full p-2 border rounded-md"/>
+      </div>
+      <div class="mb-4">
+        <input type="text" [(ngModel)]="userFormData.role" name="role" placeholder="Role" required class="w-full p-2 border rounded-md"/>
+      </div>
+      <div class="mb-4">
+        <input type="text" [(ngModel)]="userFormData.name" name="name" placeholder="Name" required class="w-full p-2 border rounded-md"/>
+      </div>
+      <div class="mb-4">
+        <input type="text" [(ngModel)]="userFormData.shift" name="shift" placeholder="Shift" required class="w-full p-2 border rounded-md"/>
+      </div>
+      <div class="mb-4">
+        <input type="date" [(ngModel)]="userFormData.date" name="date" placeholder="Date" required class="w-full p-2 border rounded-md"/>
+      </div>
+      <div class="mb-4">
+        <input type="time" [(ngModel)]="userFormData.time" name="time" placeholder="Time" required class="w-full p-2 border rounded-md"/>
+      </div>
+      <button type="submit" class="p-2 bg-blue-500 text-white rounded-md">{{ isEdit ? 'Update' : 'Add' }}</button>
+      <button type="button" (click)="closeForm()" class="p-2 bg-gray-500 text-white rounded-md ml-2">Cancel</button>
+    </form>
+  </div>
+
+  <!-- User Data Table -->
+  <div class="w-full max-w-6xl mt-6 bg-white rounded-md shadow-md">
+    <div class="flex justify-between p-4 bg-gray-200">
+      <input type="text" [(ngModel)]="filter" placeholder="Search users..." class="w-1/3 p-2 border rounded-md bg-gray-100" />
+      <button (click)="onExportClick()" class="p-2 bg-blue-500 text-white rounded-md">Export to Excel</button>
+      <button (click)="openAddUserForm()" class="p-2 bg-green-500 text-white rounded-md">Add User</button>
+    </div>
+    
+    <table class="w-full border-collapse">
+      <thead class="bg-gray-600 text-white">
+        <tr>
+          <th class="p-3 text-left">Username</th>
+          <th class="p-3 text-left">Password</th>
+          <th class="p-3 text-left">Role</th>
+          <th class="p-3 text-left">Name</th>
+          <th class="p-3 text-left">Shift</th>
+          <th class="p-3 text-left">Date</th>
+          <th class="p-3 text-left">Time</th>
+          <th class="p-3 text-left">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of paginatedUsers">
+          <td class="p-3">{{ user.username }}</td>
+          <td class="p-3">{{ user.password }}</td>
+          <td class="p-3">{{ user.role }}</td>
+          <td class="p-3">{{ user.name }}</td>
+          <td class="p-3">{{ user.shift }}</td>
+          <td class="p-3">{{ user.date | date }}</td>
+          <td class="p-3">{{ user.time }}</td>
+          <td class="p-3 flex gap-3">
+            <button class="text-yellow-500 hover:text-yellow-700" (click)="openEditUserForm(user)">Edit</button>
+            <button class="text-red-500 hover:text-red-700" (click)="deleteUser(user)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+      
+    </table>
+     <!-- Paginator -->
+  <mat-paginator [length]="filteredUsers.length" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="onPageChange($event)">
+  </mat-paginator>
+  </div>
+  
+</div>

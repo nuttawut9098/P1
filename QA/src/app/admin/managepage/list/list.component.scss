@@ -1,0 +1,18 @@
+.table-container {
+    margin-top: 60px; /* เลื่อนเนื้อหาลงมาจาก Topnav */
+    transition: margin-left 0.3s ease;
+  }
+  
+  .table-container .topnav {
+    position: relative;
+    z-index: 10; /* ทำให้ topnav อยู่ด้านบนสุด */
+  }
+  
+  .ml-60 {
+    margin-left: 60px;
+  }
+  
+  .ml-250 {
+    margin-left: 190px;
+  }
+  

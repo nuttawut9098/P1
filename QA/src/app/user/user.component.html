@@ -1,0 +1,9 @@
+<div class="layout">
+  <!-- Sidebar -->
+  <app-sidebar [navItems]="navItems" [username]="userDetail.username"></app-sidebar>
+
+  <!-- Main Content -->
+  <div class="main-content" [ngClass]="{ 'collapsed': isCollapsed }">
+    <router-outlet></router-outlet>
+  </div>
+</div>

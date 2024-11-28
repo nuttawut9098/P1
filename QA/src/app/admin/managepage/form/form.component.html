@@ -1,0 +1,74 @@
+<div class="max-w-2xl mx-auto p-6 bg-gray-100 shadow-lg rounded-lg form-container">
+  <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Edit Data</h2>
+  <form (ngSubmit)="onSubmit()" class="space-y-2">
+    
+    <!-- Form Fields in Grid Layout -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="relative">
+        <label for="portion" class="block text-sm font-bold text-gray-700">Portion</label>
+        <input id="portion" [(ngModel)]="TaData.portion" name="portion" required
+               class="w-full p-2 rounded border border-gray-300" placeholder="e.g. 123">
+      </div>
+      
+      <div class="relative">
+        <label for="no" class="block text-sm font-bold text-gray-700">No</label>
+        <input id="no" [(ngModel)]="TaData.no" name="no" required
+               class="w-full p-2 rounded border border-gray-300" placeholder="e.g. 456" type="number">
+      </div>
+      
+      <div class="relative">
+        <label for="items" class="block text-sm font-bold text-gray-700">Items</label>
+        <input id="items" [(ngModel)]="TaData.items" name="items" required
+               class="w-full p-2 rounded border border-gray-300" placeholder="Item name">
+      </div>
+      
+      <div class="relative">
+        <label for="item_remind" class="block text-sm font-bold text-gray-700">Item Remind</label>
+        <input id="item_remind" [(ngModel)]="TaData.item_remind" name="item_remind" required
+               class="w-full p-2 rounded border border-gray-300" placeholder="Remind">
+      </div>
+      
+      <div class="relative">
+        <label for="rank" class="block text-sm font-bold text-gray-700">Rank</label>
+        <input id="rank" [(ngModel)]="TaData.rank" name="rank" required
+               class="w-full p-2 rounded border border-gray-300" placeholder="Rank">
+      </div>
+      
+      <div class="relative">
+        <label for="qa_network" class="block text-sm font-bold text-gray-700">QA Network</label>
+        <input id="qa_network" [(ngModel)]="TaData.qa_network" name="qa_network" required
+               class="w-full p-2 rounded border border-gray-300" placeholder="Network">
+      </div>
+      
+      <div class="relative">
+        <label for="sub_seq" class="block text-sm font-bold text-gray-700">Sub Sequence</label>
+        <input id="sub_seq" [(ngModel)]="TaData.sub_seq" name="sub_seq" required
+               class="w-full p-2 rounded border border-gray-300" placeholder="Sequence">
+      </div>
+      
+      <div class="relative">
+        <label for="item_seq" class="block text-sm font-bold text-gray-700">Item Sequence</label>
+        <input id="item_seq" [(ngModel)]="TaData.item_seq" name="item_seq" required
+               class="w-full p-2 rounded border border-gray-300" placeholder="Sequence" type="number">
+      </div>
+      
+      <div class="relative">
+        <label for="item_type" class="block text-sm font-bold text-gray-700">Item Type</label>
+        <input id="item_type" [(ngModel)]="TaData.item_type" name="item_type" required
+               class="w-full p-2 rounded border border-gray-300" placeholder="Type">
+      </div>
+      
+      <div class="md:col-span-2 relative">
+        <label for="item_detail" class="block text-sm font-bold text-gray-700">Item Detail</label>
+        <textarea id="item_detail" [(ngModel)]="TaData.item_detail" name="item_detail" rows="2" required
+                  class="w-full p-2 rounded border border-gray-300" placeholder="Detail about the item"></textarea>
+      </div>
+    
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="w-full mt-4 py-2 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-lg shadow-md transition-all">
+      Save Item
+    </button>
+  </form>
+</div>

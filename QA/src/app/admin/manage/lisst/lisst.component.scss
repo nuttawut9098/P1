@@ -1,0 +1,9 @@
+/* ปรับให้ table หลบจาก topbar */
+/* ปรับให้ table-container หลบจาก sidebar */
+.table-container {
+  transition: margin-left 0.3s ease;
+}
+
+.ml-250 {
+  margin-left: 250px; /* Sidebar ขนาด 250px */
+}

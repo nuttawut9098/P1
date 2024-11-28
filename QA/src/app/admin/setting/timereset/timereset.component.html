@@ -1,0 +1,17 @@
+<div class="mt-20">
+  <form (ngSubmit)="onSubmit()" #resetTimeForm="ngForm" class="space-y-4 w-auto">
+    <div class="border p-4 rounded-lg shadow-sm w-64">
+      <label for="hour" class="block text-gray-700 font-semibold">ชั่วโมง:</label>
+      <input type="number" id="hour" name="hour" [(ngModel)]="resetTime.hour" required min="0" max="23"
+        class="mt-2 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <label for="minute" class="block text-gray-700 font-semibold">นาที:</label>
+      <input type="number" id="minute" name="minute" [(ngModel)]="resetTime.minute" required min="0" max="59"
+        class="mt-2 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <button type="submit" [disabled]="!resetTimeForm.valid"
+      class="w-full py-2 mt-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-300">
+      บันทึกเวลา
+    </button>
+    </div>
+    
+  </form>
+</div>
