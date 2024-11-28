@@ -7,6 +7,7 @@ const {  } = require('./shiftScheduler');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const uploadPath = './uploads';
@@ -27,7 +28,7 @@ if (!fs.existsSync(uploadPath)) {
 
 const upload = multer({ storage: storage });
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors()); 
 app.use(bodyParser.json()); 
@@ -341,7 +342,9 @@ app.get('/reset-time', (req, res) => {
   const data = getResetTime();
   res.status(200).json(data);
 });
-
+app.get('/', (req, res) => {
+  res.send('Hello from Node.js Backend!');
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

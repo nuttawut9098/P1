@@ -1,0 +1,8 @@
+{
+    "builds": [
+      {
+        "src": "dist/my-angular-project/**/*",
+        "use": "@vercel/static"
+      }
+    ]
+  }
