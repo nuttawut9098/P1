@@ -7,7 +7,7 @@ const {  } = require('./shiftScheduler');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-
+const { Pool } = require('pg');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const uploadPath = './uploads';
@@ -30,7 +30,7 @@ const upload = multer({ storage: storage });
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(express.json());
-app.use(cors()); 
+app.use(cors());
 app.use(bodyParser.json()); 
 app.use(express.urlencoded({ extended: true }));
 // Routes สำหรับ datatable เอาไว้ใช้กับ managemaster
@@ -345,7 +345,7 @@ app.get('/reset-time', (req, res) => {
 app.get('/', (req, res) => {
   res.send('Hello from Node.js Backend!');
 });
-
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+module.exports = app;
+// app.listen(port, () => {
+//   console.log(`Server running at http://localhost:${port}`);
+// });

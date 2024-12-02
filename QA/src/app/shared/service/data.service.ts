@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from '../../../environments/environment';
 export interface DataTableItem {
   portion: string;
   no: number;
@@ -23,7 +23,7 @@ export interface DataTableItem {
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -46,7 +46,7 @@ export class DataService {
     return this.http.put<DataTableItem>(`${this.apiUrl}/datatable/${item.sub_seq}/${item.item_seq}`, item);
   }
   deleteItem(subSeq: string, itemSeq: string): Observable<any> {
-    const url = `http://localhost:3000/datatable/${subSeq}/${itemSeq}`;  // Remove "master/"
+    const url = (`${this.apiUrl}/datatable/${subSeq}/${itemSeq}`);  // Remove "master/"
     return this.http.delete(url);
   }
   // Method สำหรับดึงข้อมูล

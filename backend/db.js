@@ -1,19 +1,22 @@
-// db.js
-const { Pool } = require('pg'); // ใช้ Pool สำหรับการจัดการการเชื่อมต่อหลายๆ ครั้ง
+const { Pool } = require('pg');
+
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'stm_db',
-  password: '90989098',  // เปลี่ยนเป็นรหัสผ่านของคุณ
-  port: 5432,
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DATABASE,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT,
+  ssl: {
+    rejectUnauthorized: false, // เปิดใช้งาน SSL สำหรับ Supabase
+  },
 });
 
 pool.connect((err) => {
   if (err) {
     console.error('Database connection error:', err.stack);
   } else {
-    console.log('Connected to PostgreSQL');
+    console.log('Connected to PostgreSQL (Supabase)');
   }
 });
 
-module.exports = pool; // ส่งออก pool ให้สามารถใช้งานในไฟล์อื่นได้
+module.exports = pool;
